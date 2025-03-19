@@ -13,6 +13,7 @@ import {
   Show,
 } from "solid-js";
 import { openModal } from "../../../lib/store/modal_store";
+import LoggedInUser from "./logged_in_user";
 
 const fetchProductCategories = async () => {
   const options = {
@@ -127,121 +128,54 @@ export default function Navbar(props) {
 
   return (
     <>
-      <div className="navbar bg-base-100 w-full top-0 sticky z-50 shadow-xs px-4 border-b">
-        <div className="navbar-start">
-          <a
-            href="/"
-            className="text-3xl text-green-400"
-            style={{
-              "font-family": "'Germania One', system-ui",
-              "font-weight": 400,
-              "font-style": "normal",
-            }}
-          >
-            Uranium Glass
-          </a>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <form onSubmit={handleSubmit} className="join">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="input input-sm input-bordered join-item w-80"
-              value={searchInput() || ""}
-              onInput={handleSearch}
-            />
-            <select
-              className="select select-sm select-bordered join-item w-32"
-              value={searchParams.category || "all"}
-              onChange={handleCategoryChange}
+      <div className="navbar bg-black text-white">
+        <div className="navbar-start ">
+          <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <option value="all">All Categories</option>
-              <For each={productCategories()}>
-                {(category) => (
-                  <option value={category.slug}>{category.name}</option>
-                )}
-              </For>
-            </select>
-            <Show when={!location.pathname.startsWith("/filter")}>
-              <button
-                type="submit"
-                className="btn btn-sm btn-neutral join-item"
-              >
-                Search
-              </button>
-            </Show>
-          </form>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+
+          <a href="/" className="btn btn-ghost text-xl">Uranium Glass</a>
         </div>
-        <div className="navbar-end gap-4">
-          <button
-            className="btn btn-sm btn-circle btn-outline border-gray-100 hover:border-gray-100 hover:bg-gray-100"
-            onClick={openSearch}
-          >
-            <i class="bi bi-search text-lg text-black"></i>
+
+        <div className="navbar-end">
+          <button className="btn btn-sm btn-outline px-2 py-0.5 border-none mr-4">
+            <i class="bi bi-bell text-xl text-white"></i>
           </button>
-          <div className="dropdown dropdown-end dropdown-hover">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-sm btn-circle btn-outline border-gray-100 hover:border-gray-100 hover:bg-gray-100"
-            >
-              <i class="bi bi-person text-xl text-black"></i>
+
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button">
+              <LoggedInUser />
             </div>
             <ul
               tabIndex={0}
-              className="dropdown-content menu bg-base-100 border border-gray-100 rounded-box z-1 w-40 p-2 shadow-sm"
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-48 p-2 mt-4 shadow text-base-content"
             >
-              <Show when={!location.pathname.startsWith("/account")}>
-                <li>
-                  <a href="/account">Account</a>
-                </li>
-              </Show>
-              <Show when={userInfo.is_artist === "No"}>
-                <li>
-                  <a href="/favorites-orders">Favorites/Orders</a>
-                </li>
-              </Show>
-              <Show
-                when={
-                  !location.pathname.startsWith("/seller") &&
-                  userInfo.is_artist === "Yes"
-                }
-              >
-                <li>
-                  <a href="/seller">Seller Console</a>
-                </li>
-              </Show>
+              <li>
+                <a href="/favorites">Favorites</a>
+              </li>
               <Show when={authState.isAuthenticated}>
-                <div className="divider m-0 p-0"></div>
+                <div className="divider p-0 m-0"></div>
                 <li>
-                  <button
-                    className="btn btn-sm btn-error w-full"
-                    onClick={logOut}
-                  >
+                  <button className="btn btn-sm btn-error" onClick={logout}>
                     Log Out
                   </button>
                 </li>
               </Show>
             </ul>
           </div>
-          <Show
-            when={
-              !location.pathname.startsWith("/seller") &&
-              userInfo.is_artist === "No"
-            }
-          >
-            <div className="indicator">
-              <span className="indicator-item text-xs badge badge-neutral badge-xs rounded-2xl font-semibold">
-                {checkoutStore.state.items.length}
-              </span>
-              <button
-                className="btn btn-sm btn-circle btn-outline border-gray-100 hover:border-gray-100 hover:bg-gray-100"
-                onClick={openCart}
-              >
-                <i class="bi bi-bag text-xl text-black"></i>
-              </button>
-            </div>
-          </Show>
         </div>
       </div>
     </>
