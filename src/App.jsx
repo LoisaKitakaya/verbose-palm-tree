@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import styles from './App.module.css';
+import { onMount, Show } from "solid-js";
+import { Toaster } from "solid-toast";
+import Loader from "./components/layout/loader";
+import Modal from "./components/layout/modal/modal";
+import { loadingState } from "./lib/store/loading_store";
+import { favoritesStore } from "./lib/store/favorite_store";
+import { checkoutStore } from "./lib/store/checkout_store";
+import { authState } from "./lib/store/auth_store";
 
-function App() {
+const App = (props) => {
+  onMount(() => {
+    if (authState.isAuthenticated) {
+      favoritesStore.syncWithServer();
+      checkoutStore.syncWithLocalStorage();
+    }
+  });
+
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p className="text-3xl font-bold underline">
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
-    </div>
+    <>
+      <Show when={loadingState}>
+        <Loader />
+      </Show>
+
+      {props.children}
+
+      <Toaster position="top-center" />
+
+      <Modal />
+    </>
   );
-}
+};
 
 export default App;
