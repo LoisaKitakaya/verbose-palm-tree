@@ -54,23 +54,35 @@ export default function Home() {
       <MetaTitle title="Home" />
 
       <Container>
-        <div className="card bg-base-100 w-full shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Setup Guide</h2>
-            <p>
-              Follow the following instructions to help you setup a merchant
-              shop ASAP!
-            </p>
+        <div className="m-2">
+          <section class="overflow-hidden bg-base-200 sm:grid sm:grid-cols-2">
+            <div class="p-8 md:p-12 lg:px-16 lg:py-24">
+              <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
+                <h2 class="text-2xl font-bold text-gray-900 md:text-3xl">
+                  Welcome to Uranium Glass Seller Console
+                </h2>
 
-            <br />
+                <p class="hidden text-gray-500 md:mt-4 md:block">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et,
+                  egestas tempus tellus etiam sed. Quam a scelerisque amet
+                  ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat
+                  quisque ut interdum tincidunt duis.
+                </p>
 
-            <ul className="steps steps-vertical">
-              <li className="step step-primary">Register</li>
-              <li className="step step-primary">Choose plan</li>
-              <li className="step">Purchase</li>
-              <li className="step">Receive Product</li>
-            </ul>
-          </div>
+                <div class="mt-4 md:mt-8">
+                  <a href="/store/products" class="btn btn-neutral">
+                    Go To Inventory
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <img
+              alt=""
+              src="https://i.pinimg.com/originals/78/69/fa/7869facc31268386787f80538d060fb4.jpg"
+              class="h-56 w-full object-cover sm:h-full"
+            />
+          </section>
         </div>
       </Container>
     </>

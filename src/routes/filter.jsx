@@ -73,7 +73,7 @@ export default function Filter() {
     <>
       <MetaTitle title="Filter" />
 
-      <Container show_navbar_2={false}>
+      <Container>
         <Suspense fallback={<Spinner />}>
           <div className="breadcrumbs text-sm">
             <ul>

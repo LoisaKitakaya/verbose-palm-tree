@@ -366,7 +366,7 @@ export default function Profile(props) {
 
   return (
     <>
-      <div className="card bg-base-100 w-full sm:w-96 md:w-[48rem] lg:w-full shadow-sm border border-gray-100 mb-8">
+      <div className="card bg-base-200 w-full sm:w-96 md:w-[48rem] lg:w-full mb-4">
         <div className="card-body">
           <h2 className="card-title flex justify-between items-center">
             <span>Account Information</span>
@@ -414,7 +414,7 @@ export default function Profile(props) {
               />
               <button
                 type="submit"
-                className="btn btn-sm join-item"
+                className="btn btn-sm join-item btn-neutral"
                 disabled={loadingState.isLoading}
               >
                 <Switch>
@@ -560,7 +560,7 @@ export default function Profile(props) {
             <div className="card-actions justify-end">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-sm btn-primary"
                 disabled={loadingState.isLoading}
               >
                 <Switch>
@@ -578,7 +578,7 @@ export default function Profile(props) {
       </div>
 
       <Show when={data()?.store_name}>
-        <div className="card bg-base-100 w-full sm:w-96 md:w-[48rem] lg:w-full shadow-sm border border-gray-100 mb-8">
+        <div className="card bg-base-200 w-full sm:w-96 md:w-[48rem] lg:w-full mb-4">
           <div className="card-body">
             <h2 className="card-title flex justify-between items-center">
               <span>Store Information</span>
@@ -608,7 +608,7 @@ export default function Profile(props) {
                 />
                 <button
                   type="submit"
-                  className="btn btn-sm join-item"
+                  className="btn btn-sm join-item btn-neutral"
                   disabled={loadingState.isLoading}
                 >
                   <Switch>
@@ -704,7 +704,7 @@ export default function Profile(props) {
               <div className="card-actions justify-end">
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-sm btn-primary"
                   disabled={loadingState.isLoading}
                 >
                   <Switch>

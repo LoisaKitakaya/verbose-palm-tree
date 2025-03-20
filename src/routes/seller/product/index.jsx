@@ -314,35 +314,32 @@ export default function SellerProduct() {
 
   return (
     <>
-      <MetaTitle title="Seller" />
+      <MetaTitle title={`Products - ${params.product_id}`} />
 
       <RouteProtection>
         <BuyerLimitation>
-          <Container show_navbar_2={false}>
+          <Container>
             <Suspense fallback={<Spinner />}>
-              <div className="breadcrumbs text-sm">
-                <ul>
-                  <li>
-                    <a className="link text-primary" href="/">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="link text-primary"
-                      href="/seller?tab=products"
-                    >
-                      Seller Console
-                    </a>
-                  </li>
-                  <li>{params.product_id}</li>
-                </ul>
-              </div>
-
               <Switch>
                 <Match when={sellerProduct()}>
+                  <div className="breadcrumbs text-sm">
+                    <ul>
+                      <li>
+                        <a className="link text-primary" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li>
+                        <a className="link text-primary" href="/store/products">
+                          Products
+                        </a>
+                      </li>
+                      <li>{params.product_id}</li>
+                    </ul>
+                  </div>
+
                   <div className="my-2">
-                    <div className="card bg-base-100 w-full sm:w-96 md:w-[48rem] lg:w-full shadow-sm border border-gray-100 mb-8">
+                    <div className="card bg-base-200 w-full sm:w-96 md:w-[48rem] lg:w-full mb-4">
                       <div className="card-body">
                         <h2 className="card-title flex justify-between items-center">
                           <span>Product Information</span>
@@ -500,7 +497,7 @@ export default function SellerProduct() {
                           <div className="card-actions justify-end">
                             <button
                               type="submit"
-                              className="btn btn-primary"
+                              className="btn btn-sm btn-primary"
                               disabled={loadingState.isLoading}
                             >
                               <Switch>

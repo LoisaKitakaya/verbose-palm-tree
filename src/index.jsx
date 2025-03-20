@@ -27,9 +27,12 @@ import Account from "./routes/account";
 import SellerProduct from "./routes/seller/product";
 import Filter from "./routes/filter";
 import RequestPasswordReset from "./routes/auth/security/request-password-reset";
-import Store from "./routes/store";
-import Product from "./routes/store/product";
-import Favorites from "./routes/buyer";
+import Orders from "./routes/seller/orders";
+import Shipments from "./routes/seller/shipments/shipments";
+import Analytics from "./routes/seller/analytics";
+import Reports from "./routes/seller/Reports";
+import Collections from "./routes/seller/collections";
+import Reviews from "./routes/seller/reviews";
 
 render(
   () => (
@@ -40,8 +43,6 @@ render(
         <Route path="/" component={Home} />
 
         <Route path="/filter" component={Filter} />
-
-        <Route path="/favorites-orders" component={Favorites} />
 
         <Route path="/terms-and-conditions" component={TermsAndConditions} />
 
@@ -61,14 +62,15 @@ render(
           />
         </Route>
 
-        <Route path="/seller">
-          <Route path="/" component={Seller} />
-          <Route path="/product/:product_id" component={SellerProduct} />
-        </Route>
-        
         <Route path="/store">
-          <Route path="/:store_slug" component={Store} />
-          <Route path="/product/:product_id" component={Product} />
+          <Route path="/products" component={Seller} />
+          <Route path="/products/:product_id" component={SellerProduct} />
+          <Route path="/products/collections" component={Collections} />
+          <Route path="/products/reviews" component={Reviews} />
+          <Route path="/orders" component={Orders} />
+          <Route path="/orders/shipments" component={Shipments} />
+          <Route path="/analytics" component={Analytics} />
+          <Route path="/analytics/reports" component={Reports} />
         </Route>
       </Router>
     </MetaProvider>

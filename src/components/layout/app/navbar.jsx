@@ -147,7 +147,9 @@ export default function Navbar(props) {
             </svg>
           </label>
 
-          <a href="/" className="btn btn-ghost text-xl">Uranium Glass</a>
+          <a href="/" className="btn btn-ghost text-xl">
+            Uranium Glass
+          </a>
         </div>
 
         <div className="navbar-end">
@@ -164,12 +166,14 @@ export default function Navbar(props) {
               className="dropdown-content menu bg-base-100 rounded-box z-[1] w-48 p-2 mt-4 shadow text-base-content"
             >
               <li>
-                <a href="/favorites">Favorites</a>
+                <a href="/account">
+                  <i class="bi bi-person-fill"></i> Account
+                </a>
               </li>
               <Show when={authState.isAuthenticated}>
                 <div className="divider p-0 m-0"></div>
                 <li>
-                  <button className="btn btn-sm btn-error" onClick={logout}>
+                  <button className="btn btn-sm btn-error" onClick={logOut}>
                     Log Out
                   </button>
                 </li>

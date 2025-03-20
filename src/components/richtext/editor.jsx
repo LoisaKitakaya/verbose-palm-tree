@@ -36,7 +36,7 @@ export default function Editor(props) {
           ],
         }}
         placeholder={props.placeholder || "Start typing..."}
-        style="height: 300px;"
+        style="height: 300px; background-color: white;"
       />
     </div>
   );

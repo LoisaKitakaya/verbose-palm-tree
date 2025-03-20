@@ -69,20 +69,21 @@ export default function Account() {
       <MetaTitle title="Account" />
 
       <RouteProtection>
-        <Container show_navbar_2={false}>
-          <div className="breadcrumbs text-sm">
-            <ul>
-              <li>
-                <a className="link text-primary" href="/">
-                  Home
-                </a>
-              </li>
-              <li>Account</li>
-            </ul>
-          </div>
+        <Container>
           <Suspense fallback={<Spinner />}>
             <Switch>
               <Match when={user()}>
+                <div className="breadcrumbs text-sm">
+                  <ul>
+                    <li>
+                      <a className="link text-primary" href="/">
+                        Home
+                      </a>
+                    </li>
+                    <li>Account</li>
+                  </ul>
+                </div>
+
                 <div className="my-2">
                   <Profile data={user()} refetch={refetch} />
                 </div>
