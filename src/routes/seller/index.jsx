@@ -6,6 +6,7 @@ import {
   For,
   Match,
   onMount,
+  Suspense,
   Switch,
 } from "solid-js";
 import { backendAPI } from "../../lib/utils/secrets";
@@ -18,6 +19,7 @@ import { openModal } from "../../lib/store/modal_store";
 import CreateProduct from "../../components/seller/create_product";
 import { startLoading, stopLoading } from "../../lib/store/loading_store";
 import toast from "solid-toast";
+import Spinner from "../../components/layout/spinner";
 
 const fetchSellerProducts = async () => {
   const token = Cookies.get("session");
@@ -242,121 +244,128 @@ export default function Seller() {
       <RouteProtection>
         <BuyerLimitation>
           <Container>
-            <div className="breadcrumbs text-sm">
-              <ul>
-                <li>
-                  <a className="link text-primary" href="/">
-                    Home
-                  </a>
-                </li>
-                <li>Products</li>
-              </ul>
-            </div>
+            <Suspense fallback={<Spinner />}>
+              <div className="breadcrumbs text-sm">
+                <ul>
+                  <li>
+                    <a className="link text-primary" href="/">
+                      Home
+                    </a>
+                  </li>
+                  <li>Products</li>
+                </ul>
+              </div>
 
-            <div className="m-2">
-              <Switch>
-                <Match when={sellerProducts() && sellerProducts().length > 0}>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">
-                      <strong>Product Count:</strong> {sellerProducts().length}
-                    </span>
-                    <button
-                      className="btn btn-sm btn-neutral"
-                      onClick={createProduct}
-                    >
-                      Add Product
-                    </button>
-                  </div>
+              <div className="m-2">
+                <Switch>
+                  <Match when={sellerProducts() && sellerProducts().length > 0}>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">
+                        <strong>Product Count:</strong>{" "}
+                        {sellerProducts().length}
+                      </span>
+                      <button
+                        className="btn btn-sm btn-neutral"
+                        onClick={createProduct}
+                      >
+                        Add Product
+                      </button>
+                    </div>
 
-                  <div className="divider p-0 m-0" />
+                    <div className="divider p-0 m-0" />
 
-                  <div className="overflow-x-auto w-full mt-4">
-                    <table className="table bg-base-100">
-                      {/* head */}
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Product</th>
-                          <th>Category</th>
-                          <th>Price</th>
-                          <th>Stock</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <For each={sellerProducts()}>
-                          {(item, index) => (
-                            <tr key={item.id}>
-                              <th>{index() + 1}</th>
-                              <td>
-                                <div className="flex items-center gap-8">
-                                  <div className="avatar">
-                                    <div className="mask mask-squircle h-20 w-20">
-                                      <img
-                                        src={
-                                          item.image ||
-                                          "https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                        }
-                                        alt="Avatar Tailwind CSS Component"
-                                      />
+                    <div className="overflow-x-auto w-full mt-4">
+                      <table className="table bg-base-100">
+                        {/* head */}
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <For each={sellerProducts()}>
+                            {(item, index) => (
+                              <tr key={item.id}>
+                                <th>{index() + 1}</th>
+                                <td>
+                                  <div className="flex items-center gap-8">
+                                    <div className="avatar">
+                                      <div className="mask mask-squircle h-20 w-20">
+                                        <img
+                                          src={
+                                            item.image ||
+                                            "https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                          }
+                                          alt="Avatar Tailwind CSS Component"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <div className="font-bold">
+                                        {item.name}
+                                      </div>
+                                      {item.is_active ? (
+                                        <span className="badge badge-success">
+                                          Active
+                                        </span>
+                                      ) : (
+                                        <span className="badge badge-warning">
+                                          Inactive
+                                        </span>
+                                      )}
                                     </div>
                                   </div>
-                                  <div>
-                                    <div className="font-bold">{item.name}</div>
-                                    {item.is_active ? (
-                                      <span className="badge badge-success">
-                                        Active
-                                      </span>
-                                    ) : (
-                                      <span className="badge badge-warning">
-                                        Inactive
-                                      </span>
-                                    )}
-                                  </div>
-                                </div>
-                              </td>
-                              <td>{item.category.name}</td>
-                              <td>$ {item.price.toLocaleString()}</td>
-                              <td>
-                                <strong>{item.stock}</strong> pieces in Stock
-                              </td>
-                              <td>
-                                <a
-                                  href={`/store/products/${item.id}`}
-                                  className="link text-primary"
-                                >
-                                  View
-                                </a>
-                              </td>
-                            </tr>
-                          )}
-                        </For>
-                      </tbody>
-                    </table>
-                  </div>
-                </Match>
-                <Match
-                  when={sellerProducts() && sellerProducts().status === 404}
-                >
-                  <div className="flex flex-col items-center gap-4">
-                    <span className="text-2xl font-semibold text-center mt-40">
-                      No store is associated with this account | Go to account
-                      to create one.
-                    </span>
-                  </div>
-                </Match>
-                <Match when={sellerProducts() && sellerProducts().length === 0}>
-                  <div className="flex flex-col items-center gap-4">
-                    <span className="text-2xl font-semibold text-center mt-40">
-                      0 Products Units Found
-                    </span>
-                    <button className="btn btn-sm" onClick={createProduct}>
-                      Add Product
-                    </button>
-                  </div>
-                </Match>
-              </Switch>
-            </div>
+                                </td>
+                                <td>{item.category.name}</td>
+                                <td>$ {item.price.toLocaleString()}</td>
+                                <td>
+                                  <strong>{item.stock}</strong> pieces in Stock
+                                </td>
+                                <td>
+                                  <a
+                                    href={`/store/products/${item.id}`}
+                                    className="link text-primary"
+                                  >
+                                    View
+                                  </a>
+                                </td>
+                              </tr>
+                            )}
+                          </For>
+                        </tbody>
+                      </table>
+                    </div>
+                  </Match>
+                  <Match
+                    when={sellerProducts() && sellerProducts().status === 404}
+                  >
+                    <div className="flex flex-col items-center gap-4">
+                      <span className="text-2xl font-semibold text-center mt-40">
+                        No store is associated with this account | Go to account
+                        to create one.
+                      </span>
+                    </div>
+                  </Match>
+                  <Match
+                    when={sellerProducts() && sellerProducts().length === 0}
+                  >
+                    <div className="flex flex-col items-center gap-4">
+                      <span className="text-2xl font-semibold text-center mt-40">
+                        0 Products Units Found
+                      </span>
+                      <button className="btn btn-sm btn-neutral" onClick={createProduct}>
+                        Add Product
+                      </button>
+                    </div>
+                  </Match>
+                </Switch>
+              </div>
+            </Suspense>
           </Container>
         </BuyerLimitation>
       </RouteProtection>
