@@ -51,7 +51,7 @@ export default function CreateAccount() {
 
   const [formData, setFormData] = createSignal({
     username: "",
-    role: false,
+    role: true,
     password: "",
     confirmPassword: "",
   });
@@ -164,9 +164,9 @@ export default function CreateAccount() {
 
               <form
                 onSubmit={handleSubmit}
-                className="mt-8 grid grid-cols-6 gap-6"
+                className="mt-8 grid grid-cols-6 gap-6 w-[300px] lg:w-[400px]"
               >
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-6">
                   <label
                     htmlFor="Username"
                     className="block text-sm font-medium "
@@ -182,24 +182,6 @@ export default function CreateAccount() {
                     value={formData().username}
                     className="mt-1 input input-md input-bordered w-full text-sm shadow-sm"
                   />
-                </div>
-
-                <div className="col-span-6 sm:col-span-3">
-                  <label htmlFor="Role" className="block text-sm font-medium ">
-                    Role
-                  </label>
-
-                  <select
-                    defaultValue="Role"
-                    className="mt-1 select select-md select-bordered w-full text-sm shadow-sm"
-                    id="Role"
-                    name="role"
-                    onChange={handleChange}
-                  >
-                    <option disabled={true}>Role</option>
-                    <option value={true}>Artist</option>
-                    <option value={false}>Buyer</option>
-                  </select>
                 </div>
 
                 <div className="col-span-6">
