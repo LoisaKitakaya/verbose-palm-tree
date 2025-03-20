@@ -335,6 +335,16 @@ export default function Seller() {
                     </table>
                   </div>
                 </Match>
+                <Match
+                  when={sellerProducts() && sellerProducts().status === 404}
+                >
+                  <div className="flex flex-col items-center gap-4">
+                    <span className="text-2xl font-semibold text-center mt-40">
+                      No store is associated with this account | Go to account
+                      to create one.
+                    </span>
+                  </div>
+                </Match>
                 <Match when={sellerProducts() && sellerProducts().length === 0}>
                   <div className="flex flex-col items-center gap-4">
                     <span className="text-2xl font-semibold text-center mt-40">
