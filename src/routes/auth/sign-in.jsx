@@ -21,7 +21,7 @@ const signInUser = async (data) => {
     body: JSON.stringify(data),
   };
 
-  const url = `${backendAPI}/api/v1/auth/login`;
+  const url = `${backendAPI}/api/v1/auth/login-seller`;
 
   try {
     const response = await fetch(url, options);

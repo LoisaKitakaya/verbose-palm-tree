@@ -20,7 +20,7 @@ const verifyEmail = async (data) => {
     body: JSON.stringify(data),
   };
 
-  const url = `${backendAPI}/api/v1/auth/email-verification`;
+  const url = `${backendAPI}/api/v1/auth/email-verification-seller`;
 
   try {
     const response = await fetch(url, options);

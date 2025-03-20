@@ -41,7 +41,6 @@ export default function Reports() {
             <div className="m-2">
               <Coming />
             </div>
-            ;
           </Container>
         </BuyerLimitation>
       </RouteProtection>
